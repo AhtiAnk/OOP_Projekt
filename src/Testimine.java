@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class Testimine {
     public static void main(String[] args) throws Exception {
 
-// Algruumi algne loomise test
-/*       File algus_tuba = new File("Algus tuba.txt");
+// Algruumi loomise test
+        File algus_tuba = new File("Algus tuba.txt");
         StringBuilder kirjeldus = new StringBuilder();
         try (Scanner sc = new Scanner(algus_tuba, "UTF-8")){  // loeb failist ja lisab kirjelduse muutujasse
             while (sc.hasNextLine()){
@@ -16,10 +16,16 @@ public class Testimine {
                 kirjeldus.append(rida + " ");
             }
         }
-        List<String> Algruumiesemed = Arrays.asList("Taskulamp", "Võti");
+        List<Ese> Algruumiesemed = new ArrayList<>(Arrays.asList(new Ese("Võti"), new Ese ("Taskulamp"))); // Esemete list
         Ruum algus = new Ruum("Algus", kirjeldus.toString(), false, Algruumiesemed);
         System.out.println(algus);
-*/
+
+        //Eseme eemaldamine test
+        List<Ese> alg_ese = algus.getEsemed();
+        Ese uus = new Ese("Võti"); //kasutaja inputina
+        alg_ese.remove(uus);
+        algus.setEsemed(alg_ese);
+        System.out.println(algus);
 
     }
 }
