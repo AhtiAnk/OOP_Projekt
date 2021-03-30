@@ -14,6 +14,13 @@ public class Ruum {
         this.esemed = esemed;
     }
 
+    //Esemete list sõneks, et ei oleks näha []
+    public String esemeListSõneks(List<Ese> esemed){
+        String tulemus = esemed.toString();
+        return tulemus.replace("[","").replace("]","");
+
+    }
+
     public String getNimi() {
         return nimi;
     }
@@ -43,7 +50,7 @@ public class Ruum {
     }
 
     public String toString(){
-        return "nimi: " +nimi+ ", kirjeldus: " +ruumi_kirjeldus+ "sisaldab koletist: " +
-                sisaldab_koletist+ ", esemed: " + esemed;
+        return ruumi_kirjeldus +"\n"+ "Sa näed ruumis asju, mida võib hiljem vaja minna: " +
+                esemeListSõneks(esemed);
     }
 }

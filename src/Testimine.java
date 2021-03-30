@@ -21,11 +21,25 @@ public class Testimine {
         System.out.println(algus);
 
         //Eseme eemaldamine test
-        List<Ese> alg_ese = algus.getEsemed();
-        Ese uus = new Ese("Võti"); //kasutaja inputina
-        alg_ese.remove(uus);
-        algus.setEsemed(alg_ese);
-        System.out.println(algus);
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("Sisesta käsk: ");
+            String[] käsk = sc.nextLine().split(" ");
+            if (käsk[0].equals("Võta")) {  //Võtab ruumist eseme
+                Ese eemalda = new Ese(käsk[1]);
+                algus.getEsemed().remove(eemalda);
+                //Vaja ka lisada mängja asjade hulka
+                System.out.println(algus);
+            }
+
+            else if (käsk[0].equals("Mine")){  //Mine teise ruumi
+
+            }
+            else if (käsk[0].equals("Stop"))  //Peata mäng
+                break;
+            else
+                System.out.println("Vale käsk");
+        }
 
     }
 }
