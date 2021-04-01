@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.util.Arrays.asList;
+
 public class Testimine {
     public static void main(String[] args) throws Exception {
 
@@ -16,7 +18,7 @@ public class Testimine {
                 kirjeldus.append(rida + " ");
             }
         }
-        List<Ese> Algruumiesemed = new ArrayList<>(Arrays.asList(new Ese("Võti"), new Ese ("Taskulamp"))); // Esemete list
+        List<Ese> Algruumiesemed = new ArrayList<>(asList(new Ese("Võti"), new Ese ("Taskulamp"))); // Esemete list
         Ruum algus = new Ruum("Algus", kirjeldus.toString(), false, Algruumiesemed);
         System.out.println(algus);
 
