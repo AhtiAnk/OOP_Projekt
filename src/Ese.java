@@ -1,8 +1,6 @@
-import java.util.List;
 import java.util.Objects;
 
 public class Ese {
-    //esemed
     private String nimi;
 
     public Ese(String nimi) {

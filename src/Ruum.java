@@ -1,7 +1,6 @@
 import java.util.List;
 
 public class Ruum {
-    //isendiväljad ruumi jaoks
     private String nimi;
     private String ruumi_kirjeldus;
     private boolean sisaldab_koletist;
@@ -14,11 +13,10 @@ public class Ruum {
         this.esemed = esemed;
     }
 
-    //Esemete list sõneks, et ei oleks näha []
+    //Esemete map sõneks, et oleks loetav
     public String esemeListSõneks(List<Ese> esemed){
         String tulemus = esemed.toString();
-        return tulemus.replace("[","").replace("]","");
-
+        return tulemus.replace("[", "").replace("]", "");
     }
 
     public String getNimi() {
@@ -43,10 +41,6 @@ public class Ruum {
 
     public void setSisaldab_koletist(boolean sisaldab_koletist) {
         this.sisaldab_koletist = sisaldab_koletist;
-    }
-
-    public void setEsemed(List<Ese> esemed) {
-        this.esemed = esemed;
     }
 
     public String toString(){

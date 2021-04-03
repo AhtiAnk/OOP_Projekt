@@ -1,38 +1,83 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        //Algus Ruum
-        List<Ese> Algruumiesemed = new ArrayList<>(asList(new Ese("Võti"), new Ese ("Taskulamp"))); // Esemete list
-        Ruum algus = new Ruum("Algus", loeFailist("Algus tuba.txt"), false, Algruumiesemed);
+
+        //Algus tuba
+        List<Ese> algruumiesemed = new ArrayList<>(asList(new Ese("võti"), new HPEse("potion", 10)));
+        Ruum algus = new Ruum("Algus", loeFailist("Algus tuba.txt"), false, algruumiesemed);
+
         //Teised toad
+
+        //Mängja
+        List<Ese> mängjaAsjad = new ArrayList<>();
+        Mängija mängija = new Mängija(mängjaAsjad,10,20,100);
 
         //Mängu jooksutamine
         System.out.println(algus);
+        mängija.setAsukoht(algus);
         Scanner sc = new Scanner(System.in);
+        label:
         while (true) {
             System.out.println("Sisesta käsk: ");
             String[] käsk = sc.nextLine().split(" ");
-            if (käsk[0].equals("Võta")) {  //Võtab ruumist eseme
-                Ese eemalda = new Ese(käsk[1]);
-                algus.getEsemed().remove(eemalda);
-                //Vaja ka lisada mängja asjade hulka
-                System.out.println(algus);
-            }
 
-            else if (käsk[0].equals("Mine")){  //Mine teise ruumi
+            //Võtab ruumist eseme ja lisab mängja esemetesse
+            switch (käsk[0]) {
+                case "Võta":
+                    for (int i = 0; i < mängija.getAsukoht().getEsemed().size(); i++) { //Läbib ruumi esemete listi
+                        if (käsk[1].equals(mängija.getAsukoht().getEsemed().get(i).getNimi())) { //Kontrollib kas ese on olemas
+                            mängija.getAsjad().add(mängija.getAsukoht().getEsemed().get(i));
+                            mängija.getAsukoht().getEsemed().remove(mängija.getAsukoht().getEsemed().get(i));
+                            break;
+                        }
+                    }
+                    System.out.println(algus);
+                    break;
 
+                //Kasutab mängja eset
+                case "Kasuta":
+                    for (int i = 0; i < mängija.getAsjad().size(); i++) {
+                        if (käsk[1].equals(mängija.getAsjad().get(i).getNimi())) {
+
+                            if (mängija.getAsjad().get(i) instanceof HPEse) { //Kontrollib kas kasutatav ese kuulub klassi
+                                mängija.setHP(mängija.getHP() + ((HPEse) mängija.getAsjad().get(i)).getTaastaHP()); //Taastab HP-d
+                                if (mängija.getHP() > mängija.getMaxHP()) //Kontrollib, et HP ei oleks üle max väärtuse
+                                    mängija.setHP(mängija.getMaxHP());
+                                mängija.getAsjad().remove(i);
+                                System.out.println("Sinu HP taastati");
+                                break;
+                            } else if (mängija.getAsjad().get(i) instanceof RündeEse) { //Suurendab mängja rünnakut kui on ründeese
+                                mängija.setRelv((RündeEse) mängija.getAsjad().get(i));
+                                System.out.println("Su rünnak on nüüd tugevam");
+                                break;
+                            } else {
+                                System.out.println("Ei saa kasutada");
+                                break;
+                            }
+                        }
+                    }
+                    break;
+
+                //Prindib välja mängja asjad ja andmed
+                case "Info":
+                    System.out.println(mängija);
+                    break;
+
+                case "Mine":   //Mine teise ruumi
+
+                    break;
+                //Peata mäng
+                case "Stop":
+                    break label;
+
+                default:
+                    System.out.println("Vale käsk");
+                    break;
             }
-            else if (käsk[0].equals("Stop"))  //Peata mäng
-                break;
-            else
-                System.out.println("Vale käsk");
         }
     }
 

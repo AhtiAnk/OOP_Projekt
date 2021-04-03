@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Koletis {
     //koletise isendiväljad
     private String nimi;
@@ -22,8 +20,11 @@ public class Koletis {
     public int Ründa() { //Rünnaku tugevus
         return (int) ((Math.random() * (maxTugevus - minTugevus)) + minTugevus);
     }
-    public int rünnakuKahju(Mängja mängija) {
+    public int rünnakuKahju(Mängija mängija) {
         int mängijaRünnak = mängija.Ründa(); //mängija klassi meetod
+        if (mängija.getRelv() != null) { //Kontrollib kas mängjal on relv, kui on siis suurendab rünnakut
+            mängijaRünnak =+ mängija.getRelv().getSuurendarünnakut();
+        }
         if (HP - mängijaRünnak > 0) {
             return HP - mängijaRünnak;
         } else {
