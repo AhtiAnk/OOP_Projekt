@@ -9,4 +9,9 @@ public class RündeEse extends Ese {
     public int getSuurendarünnakut() {
         return suurendarünnakut;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (rünnak +" +getSuurendarünnakut()+ ")";
+    }
 }

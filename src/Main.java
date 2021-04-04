@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //Algus tuba
-        List<Ese> algruumiesemed = new ArrayList<>(asList(new Ese("võti"), new HPEse("potion", 10)));
+        List<Ese> algruumiesemed = new ArrayList<>(asList(new RündeEse("võti", 10), new HPEse("potion", 10)));
         Ruum algus = new Ruum("Algus", loeFailist("Algus tuba.txt"), false, algruumiesemed);
 
         //Teised toad
@@ -28,38 +28,13 @@ public class Main {
             //Võtab ruumist eseme ja lisab mängja esemetesse
             switch (käsk[0]) {
                 case "Võta":
-                    for (int i = 0; i < mängija.getAsukoht().getEsemed().size(); i++) { //Läbib ruumi esemete listi
-                        if (käsk[1].equals(mängija.getAsukoht().getEsemed().get(i).getNimi())) { //Kontrollib kas ese on olemas
-                            mängija.getAsjad().add(mängija.getAsukoht().getEsemed().get(i));
-                            mängija.getAsukoht().getEsemed().remove(mängija.getAsukoht().getEsemed().get(i));
-                            break;
-                        }
-                    }
-                    System.out.println(algus);
+                    mängija.võtaEse(käsk[1]);
+                    System.out.println(mängija.getAsukoht());
                     break;
 
                 //Kasutab mängja eset
                 case "Kasuta":
-                    for (int i = 0; i < mängija.getAsjad().size(); i++) {
-                        if (käsk[1].equals(mängija.getAsjad().get(i).getNimi())) {
-
-                            if (mängija.getAsjad().get(i) instanceof HPEse) { //Kontrollib kas kasutatav ese kuulub klassi
-                                mängija.setHP(mängija.getHP() + ((HPEse) mängija.getAsjad().get(i)).getTaastaHP()); //Taastab HP-d
-                                if (mängija.getHP() > mängija.getMaxHP()) //Kontrollib, et HP ei oleks üle max väärtuse
-                                    mängija.setHP(mängija.getMaxHP());
-                                mängija.getAsjad().remove(i);
-                                System.out.println("Sinu HP taastati");
-                                break;
-                            } else if (mängija.getAsjad().get(i) instanceof RündeEse) { //Suurendab mängja rünnakut kui on ründeese
-                                mängija.setRelv((RündeEse) mängija.getAsjad().get(i));
-                                System.out.println("Su rünnak on nüüd tugevam");
-                                break;
-                            } else {
-                                System.out.println("Ei saa kasutada");
-                                break;
-                            }
-                        }
-                    }
+                    mängija.kasuta(käsk[1]);
                     break;
 
                 //Prindib välja mängja asjad ja andmed
@@ -67,9 +42,11 @@ public class Main {
                     System.out.println(mängija);
                     break;
 
-                case "Mine":   //Mine teise ruumi
+                //Mine teise ruumi
+                case "Mine":
 
                     break;
+
                 //Peata mäng
                 case "Stop":
                     break label;

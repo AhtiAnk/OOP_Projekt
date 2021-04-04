@@ -42,6 +42,46 @@ public class Mängija {
         return tulemus.replace("[", "").replace("]", "");
     }
 
+    public void võtaEse(String nimi){
+        for (int i = 0; i < asukoht.getEsemed().size(); i++) {
+            if (nimi.equals(asukoht.getEsemed().get(i).getNimi())) {
+                asjad.add(asukoht.getEsemed().get(i));
+                asukoht.getEsemed().remove(i);
+                break;
+            }
+        }
+    }
+
+    public void kasuta(String nimi){
+        for (int i = 0; i < asjad.size(); i++) {
+            if (nimi.equals(asjad.get(i).getNimi())) { //Kontrollib kas selline ese on mängjal
+                if (asjad.get(i) instanceof HPEse) { //Kontrollib kas kasutatav ese on HPEse, kui on siis taastab HP
+                    HP += ((HPEse) asjad.get(i)).getTaastaHP();
+                    if (HP > maxHP) //Kontrollib, et HP ei oleks üle max väärtuse
+                        HP = maxHP;
+                    asjad.remove(i);
+                    System.out.println("Sinu HP taastati");
+                    break;
+                }
+                else if (asjad.get(i) instanceof RündeEse) { //Võtab kasutusele, kui on ründeese
+                    relv = (RündeEse) asjad.get(i);
+                    System.out.println("Su rünnak on nüüd tugevam");
+                    break;
+                }
+                else {
+                    System.out.println("Ei saa kasutada");
+                    break;
+                }
+            }
+        }
+    }
+
+    public String kasRelvOnKasutusel(){
+        if (relv != null)
+            return " " + relv.toString();
+        return "";
+    }
+
     public Ruum getAsukoht() {
         return asukoht;
     }
@@ -78,10 +118,6 @@ public class Mängija {
         return relv;
     }
 
-    public void setRelv(RündeEse relv) {
-        this.relv = relv;
-    }
-
     public void setMinTugevus(int minTugevus) {
         this.minTugevus = minTugevus;
     }
@@ -92,6 +128,7 @@ public class Mängija {
 
     @Override
     public String toString() {
-        return "Sinu asjad: " +esemeListSõneks(asjad)+ ", HP: " +HP+ ", Rünnaku tugevus: " +minTugevus+ "-" +maxTugevus;
+        return "Sinu asjad: " +esemeListSõneks(asjad)+ ", HP: " +HP+ ", Rünnaku tugevus: " +minTugevus+ "-" +maxTugevus +
+                ", Relv: " + kasRelvOnKasutusel();
     }
 }

@@ -9,4 +9,9 @@ public class HPEse extends Ese {
     public int getTaastaHP() {
         return taastaHP;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (HP +" +getTaastaHP()+ ")";
+    }
 }
