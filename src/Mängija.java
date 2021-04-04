@@ -6,7 +6,6 @@ public class Mängija {
     private RündeEse relv; //relv, mis suurendab rünnakut
     private int minTugevus; //minimaalne rünnaku tugevus
     private int maxTugevus; //maksimaalne rünnaku tugevus
-    //private int kaitse; //buffer tase (ala 1st 5ni)
     private int maxHP; //maksimaalne HP (mängu alguses)
     private int HP; //HP mängu kestel
 
@@ -25,9 +24,11 @@ public class Mängija {
     public int rünnakuKahju(Koletis koletis) {
         int kolliRünnak = koletis.Ründa(); //kolli klassi meetod
         if (HP - kolliRünnak > 0) {
-            return HP - kolliRünnak;
+            HP = HP - kolliRünnak;
+            return HP;
         } else {
-            return 0;
+            HP = 0;
+            return HP;
         }
     }
 
@@ -54,7 +55,7 @@ public class Mängija {
 
     public void kasuta(String nimi){
         for (int i = 0; i < asjad.size(); i++) {
-            if (nimi.equals(asjad.get(i).getNimi())) { //Kontrollib kas selline ese on mängjal
+            if (nimi.equals(asjad.get(i).getNimi())) { //Kontrollib kas selline ese on mängijal
                 if (asjad.get(i) instanceof HPEse) { //Kontrollib kas kasutatav ese on HPEse, kui on siis taastab HP
                     HP += ((HPEse) asjad.get(i)).getTaastaHP();
                     if (HP > maxHP) //Kontrollib, et HP ei oleks üle max väärtuse
