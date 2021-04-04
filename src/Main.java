@@ -40,6 +40,8 @@ public class Main {
 
                 case "ründa":
                     IO.lahing(mängija, mängija.getAsukoht().getKoletis(), mängija.getAsukoht());
+                    if (!mängija.onElus())
+                        break label;
                     break;
 
                 //Prindib välja mängja asjad ja andmed
