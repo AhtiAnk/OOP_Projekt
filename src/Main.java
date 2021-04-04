@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //Algus tuba
-        List<Ese> algruumiesemed = new ArrayList<>(asList(new RündeEse("võti", 10), new HPEse("potion", 10)));
+        List<Ese> algruumiesemed = new ArrayList<>(asList(new Ese("võti"), new HPEse("potion", 10)));
         Ruum algus = new Ruum("Algus", loeFailist("Algus tuba.txt"), false, algruumiesemed);
 
         //Teised toad
