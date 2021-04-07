@@ -1,5 +1,5 @@
 public class HPEse extends Ese {
-    private int taastaHP;
+    private int taastaHP; //väärtus, kui palju taastada HP
 
     public HPEse(String nimi, int taastaHP) {
         super(nimi);

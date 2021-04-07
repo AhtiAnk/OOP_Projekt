@@ -1,5 +1,4 @@
 public class Koletis {
-    //koletise isendiväljad
     private String nimi;
     // String kirjeldus;
     private int minTugevus; //minimaalne rünnaku tugevus
@@ -31,6 +30,7 @@ public class Koletis {
             return HP;
         }
     }
+    //Loob suvalise koletise ruumi jaoks
     public static Koletis suvalineKoll() {
         int suvaline = (int) (Math.random() * 3) + 1;
         Koletis koll = null;
@@ -48,6 +48,7 @@ public class Koletis {
         return koll;
     }
 
+    //Erinevad koletised
     public static Koletis ork() {
         return new Koletis("ork", 5, 10, 40);
     }

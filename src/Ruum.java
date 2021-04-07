@@ -5,18 +5,17 @@ import static java.util.Arrays.asList;
 public class Ruum {
     private String nimi;
     private String ruumi_kirjeldus;
-    private boolean sisaldab_koletist;
     private Koletis koletis;
     private List<Ese> esemed;
 
-    public Ruum(String nimi, String ruumi_kirjeldus, boolean sisaldab_koletist, Koletis koletis, List<Ese> esemed) {
+    public Ruum(String nimi, String ruumi_kirjeldus, Koletis koletis, List<Ese> esemed) {
         this.nimi = nimi;
         this.ruumi_kirjeldus = ruumi_kirjeldus;
-        this.sisaldab_koletist = sisaldab_koletist;
         this.koletis = koletis;
         this.esemed = esemed;
     }
 
+    //Loob uue ruumi, kui mängja liigub
     public static Ruum uusSuvalineRuum() {
         String nimi = null;
         String kirjeldus = null;
@@ -42,7 +41,7 @@ public class Ruum {
             //case 5: ..
 
 
-        }return new Ruum(nimi, kirjeldus, true, Koletis.suvalineKoll(), esemed);
+        }return new Ruum(nimi, kirjeldus, Koletis.suvalineKoll(), esemed);
     }
 
     //Esemete map sõneks, et oleks loetav
@@ -59,10 +58,6 @@ public class Ruum {
         return ruumi_kirjeldus;
     }
 
-    public boolean isSisaldab_koletist() {
-        return sisaldab_koletist;
-    }
-
     public Koletis getKoletis() {
         return koletis;
     }
@@ -71,12 +66,8 @@ public class Ruum {
         return esemed;
     }
 
-    public void setRuumi_kirjeldus(String ruumi_kirjeldus) {
-        this.ruumi_kirjeldus = ruumi_kirjeldus;
-    }
-
-    public void setSisaldab_koletist(boolean sisaldab_koletist) {
-        this.sisaldab_koletist = sisaldab_koletist;
+    public void setKoletis(Koletis koletis) {
+        this.koletis = koletis;
     }
 
     public String toString(){

@@ -34,6 +34,7 @@ public class IO {
             System.out.println("Mäng läbi! Oled surnud.");
         }else if (!koletis.onElus()) {
             System.out.println("Võitlus läbi! Sa võitsid.");
+            mängija.getAsukoht().setKoletis(null);
         }
     }
 

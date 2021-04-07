@@ -1,14 +1,13 @@
-import java.io.File;
 import java.util.*;
 
 import static java.util.Arrays.asList;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         //Algus tuba
         List<Ese> algruumiesemed = new ArrayList<>(asList(new Ese("võti"), new HPEse("potion", 10)));
-        Ruum algus = new Ruum("Algus","Uurides oma ümbrut näed sa ust.", false, null, algruumiesemed);
+        Ruum algus = new Ruum("Algus","Uurides oma ümbrut näed sa ust.", null, algruumiesemed);
 
         //Mängija
         List<Ese> mängjaAsjad = new ArrayList<>();
@@ -38,8 +37,13 @@ public class Main {
                     mängija.kasuta(käsk[1]);
                     break;
 
+                //Ründab koletist
                 case "ründa":
-                    IO.lahing(mängija, mängija.getAsukoht().getKoletis(), mängija.getAsukoht());
+                    if (mängija.getAsukoht().getKoletis() != null) //kontroll kas koletis on olemas
+                        IO.lahing(mängija, mängija.getAsukoht().getKoletis(), mängija.getAsukoht());
+                    else
+                        System.out.println("Siin ei ole ühtegi koletist");
+
                     if (!mängija.onElus())
                         break label;
                     break;
