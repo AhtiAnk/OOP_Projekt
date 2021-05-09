@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.List;
 
-public class Mängija {
+public class Mängija implements Serializable {
     private Ruum asukoht;
     private List<Ese> asjad;
     private RündeEse relv; //relv, mis suurendab rünnakut
@@ -95,8 +96,16 @@ public class Mängija {
         return asjad;
     }
 
+    public void setAsjad(List<Ese> asjad) {
+        this.asjad = asjad;
+    }
+
     public int getMaxHP() {
         return maxHP;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
     }
 
     public int getHP() {
@@ -117,6 +126,10 @@ public class Mängija {
 
     public RündeEse getRelv() {
         return relv;
+    }
+
+    public void setRelv(RündeEse relv) {
+        this.relv = relv;
     }
 
     public void setMinTugevus(int minTugevus) {

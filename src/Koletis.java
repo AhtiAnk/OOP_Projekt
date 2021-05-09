@@ -1,4 +1,6 @@
-public class Koletis {
+import java.io.Serializable;
+
+public class Koletis implements Serializable {
     private String nimi;
     // String kirjeldus;
     private int minTugevus; //minimaalne rünnaku tugevus

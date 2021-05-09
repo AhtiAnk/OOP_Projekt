@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.*;
 
 import static java.util.Arrays.asList;
 
-public class Ruum {
+public class Ruum implements Serializable {
     private String nimi;
     private String ruumi_kirjeldus;
     private Koletis koletis;

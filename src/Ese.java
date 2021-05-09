@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Ese {
+public class Ese implements Serializable {
     private String nimi;
 
     public Ese(String nimi) {
