@@ -1,0 +1,16 @@
+OOP_Projekt/Koletis.java
+ OOP_Projekt.Koletis
+OOP_Projekt/Ese.java
+ OOP_Projekt.Ese
+OOP_Projekt/Main.java
+ OOP_Projekt.Main
+OOP_Projekt/Ruum.java
+ OOP_Projekt.Ruum
+OOP_Projekt/RündeEse.java
+ OOP_Projekt.RündeEse
+OOP_Projekt/Mängija.java
+ OOP_Projekt.Mängija
+OOP_Projekt/HPEse.java
+ OOP_Projekt.HPEse
+OOP_Projekt/Käsk.java
+ OOP_Projekt.Käsk
