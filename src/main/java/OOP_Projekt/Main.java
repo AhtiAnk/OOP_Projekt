@@ -51,7 +51,7 @@ public class Main extends Application {
         });
 
         VBox juur = new VBox(15, output, input);
-        juur.setPrefSize(650, 500);
+        juur.setPrefSize(750, 500);
         juur.setPadding(new Insets(15));
         uusMäng();
         return juur;
@@ -62,6 +62,11 @@ public class Main extends Application {
             output.appendText("\n\n" + nimi + " : " + käsk.getKirjeldus());
         });
         output.appendText("\n\nSisesta käsk: ...");
+    }
+    private void menüüVäike() {
+        käsud.forEach((nimi, käsk) ->  {
+            output.appendText(nimi + " | ");
+        });
     }
 
     private void uusMäng(){
@@ -83,7 +88,7 @@ public class Main extends Application {
 
         String[] sisend = line.split(" ");
         if (!käsud.containsKey(sisend[0])) {
-            output.appendText("\nKäsku ei leitud!");
+            output.appendText("\n\nKäsku ei leitud!");
             return;
         }
         käsud.get(sisend[0]).käivita();
@@ -107,7 +112,7 @@ public class Main extends Application {
             input.clear();
         }
         output.appendText(mängija.getAsukoht().toString());
-        //menüü();
+        menüü();
 
     }
     private static void salvestaMäng(Mängija mängija) throws IOException {
@@ -125,19 +130,24 @@ public class Main extends Application {
     }
     private void võtaEse() {
         String[] käsk = input.getText().split(" ");
-        mängija.võtaEse(käsk[1]);
-        output.appendText(mängija.getAsukoht().toString());
+        if (käsk.length == 1) {
+            output.appendText("\n\nKirjuta mida sa võtta tahad (nt. võta oda)");
+        }
+        output.appendText(mängija.võtaEse(käsk[1]));
+        output.appendText("\n" + mängija.getAsukoht().toString());
     }
     private void kasutaEset() {
         String[] käsk = input.getText().split(" ");
-        //mängija.kasuta(käsk[1]);
+        if (käsk.length == 1) {
+            output.appendText("\n\nKirjuta mida sa kasutada tahad (nt kasuta oda)");
+        }
         output.appendText(mängija.kasuta(käsk[1]));
     }
     private void ründa() {
         if (mängija.getAsukoht().getKoletis() != null) //kontroll kas koletis on olemas
             lahing(mängija, mängija.getAsukoht().getKoletis(), mängija.getAsukoht());
         else
-            output.appendText("\nSiin ei ole ühtegi koletist");
+            output.appendText("\n\nSiin ei ole ühtegi koletist");
 
         if (!mängija.onElus()) {
             //input.setEditable(false);
@@ -145,12 +155,14 @@ public class Main extends Application {
         }
     }
     private void info() {
-        output.appendText(mängija.toString());
+        output.appendText("\n" + mängija.toString());
     }
     private void liigu() {
         Ruum sihtPunkt = Ruum.uusSuvalineRuum();
         mängija.setAsukoht(sihtPunkt);
         output.appendText(sihtPunkt.toString());
+        output.appendText("\n");
+        menüüVäike();
     }
     private void salvesta() {
         try {
@@ -175,12 +187,13 @@ public class Main extends Application {
             output.appendText("\nSinu HP peale rünnakut on: " + mängija.getHP());
             output.appendText("\nKoletise HP peale rünnakut on: " + koletis.getHP());
             output.appendText("\n\nKui tahad oma rünnakut tugevdada, vaheta relva (nt kasuta oda).\nKui tahad end ravida, kasuta potionit (nt kasuta potion)." +
-                    "\nVastasel juhul ründa uuesti.");
+                    "\nEt näha oma esemeid, kirjuta \"info\"."
+                     + "\nVastasel juhul ründa uuesti.");
             }
         if (!mängija.onElus()) {
-            output.appendText("\nMäng läbi! Oled surnud.");
+            output.appendText("\n\nMäng läbi! Oled surnud.");
         }else if (!koletis.onElus()) {
-            output.appendText("\nVõitlus läbi! Sa võitsid.");
+            output.appendText("\n\nVõitlus läbi! Sa võitsid. Liigu edasi.");
             mängija.getAsukoht().setKoletis(null);
         }
     }
