@@ -56,7 +56,8 @@ public class Mängija implements Serializable {
         }
     }
 
-    public void kasuta(String nimi){
+    public String kasuta(String nimi) {
+        String teade;
         for (int i = 0; i < asjad.size(); i++) {
             if (nimi.equals(asjad.get(i).getNimi())) { //Kontrollib kas selline ese on mängijal
                 if (asjad.get(i) instanceof HPEse) { //Kontrollib kas kasutatav ese on HPEse, kui on siis taastab HP
@@ -64,21 +65,21 @@ public class Mängija implements Serializable {
                     if (HP > maxHP) //Kontrollib, et HP ei oleks üle max väärtuse
                         HP = maxHP;
                     asjad.remove(i);
-                    System.out.println("Sinu HP taastati");
+                    teade = "\nSinu HP taastati";
+                    return teade;
 
-                    break;
-                }
-                else if (asjad.get(i) instanceof RündeEse) { //Võtab kasutusele, kui on ründeese
+                } else if (asjad.get(i) instanceof RündeEse) { //Võtab kasutusele, kui on ründeese
                     relv = (RündeEse) asjad.get(i);
-                    System.out.println("Su rünnak on nüüd tugevam");
-                    break;
-                }
-                else {
-                    System.out.println("Ei saa kasutada");
-                    break;
+                    teade = "\nSu rünnak on nüüd tugevam";
+                    return teade;
+
+                } else {
+                    teade = "\nEi saa kasutada";
+                    return teade;
                 }
             }
         }
+        return null;
     }
 
     public String kasRelvOnKasutusel(){
