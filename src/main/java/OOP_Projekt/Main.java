@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import static java.util.Arrays.asList;
+import static javafx.application.Platform.exit;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -93,20 +94,19 @@ public class Main extends Application {
         menüü();
     }
     private void failistAlgus() {
-        output.clear();
         try {
             mängija = laeMäng();
         } catch (IOException e) {
             e.printStackTrace();
-            output.appendText("\nEt laadida salvestatud mängu, pead kõigepealt mängu salvestama!");
-            menüü();
+            output.appendText("\n\nEt laadida salvestatud mängu, pead kõigepealt mängu salvestama!");
+            //menüü();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            output.appendText("\nEt laadida salvestatud mängu, pead kõigepealt mängu salvestama!");
-            menüü();
+            output.appendText("\n\nEt laadida salvestatud mängu, pead kõigepealt mängu salvestama!");
+            //menüü();
         }
         output.appendText(mängija.getAsukoht().toString());
-        menüü();
+        //menüü();
 
     }
     private static void salvestaMäng(Mängija mängija) throws IOException {
@@ -129,7 +129,8 @@ public class Main extends Application {
     }
     private void kasutaEset() {
         String[] käsk = input.getText().split(" ");
-        mängija.kasuta(käsk[1]);
+        //mängija.kasuta(käsk[1]);
+        output.appendText(mängija.kasuta(käsk[1]));
     }
     private void ründa() {
         if (mängija.getAsukoht().getKoletis() != null) //kontroll kas koletis on olemas
@@ -138,7 +139,8 @@ public class Main extends Application {
             output.appendText("\nSiin ei ole ühtegi koletist");
 
         if (!mängija.onElus()) {
-            return; //exit
+            //input.setEditable(false);
+            input.setVisible(false);
         }
     }
     private void info() {
@@ -164,29 +166,17 @@ public class Main extends Application {
             output.appendText("\nSinu HP on: " + mängija.getHP());
             output.appendText("\nKoletise HP on: " + koletis.getHP());
             output.appendText("\n\n\n");
-
-            //if (sisend.equals("ründa")) {
+            uusKäsk();
+            //if (input.equals("ründa"))
             koletis.rünnakuKahju(mängija);
-                if (koletis.onElus()) {
-                    mängija.rünnakuKahju(koletis);
+            if (koletis.onElus()) {
+                mängija.rünnakuKahju(koletis);
                 }
-            output.appendText("Kui tahad oma rünnakut tugevdada, vaheta relva (nt kasuta oda).\nKui tahad end ravida, kasuta potionit (nt kasuta potion)." +
+            output.appendText("\nSinu HP peale rünnakut on: " + mängija.getHP());
+            output.appendText("\nKoletise HP peale rünnakut on: " + koletis.getHP());
+            output.appendText("\n\nKui tahad oma rünnakut tugevdada, vaheta relva (nt kasuta oda).\nKui tahad end ravida, kasuta potionit (nt kasuta potion)." +
                     "\nVastasel juhul ründa uuesti.");
             }
-            /*else if (sisend.equals("potion")) {
-                //System.out.println(mängija);
-                output.appendText(mängija.toString());
-                //System.out.println("Vali potion ning sisesta selle nimi.");
-                output.appendText("Vali potion ning sisesta selle nimi.");
-                String sisend1 = input.getText();
-                mängija.kasuta(sisend1);
-            }
-            else if (sisend.equals("relv")) {
-                output.appendText(mängija.toString());
-                output.appendText("Vali relv ning sisesta selle nimi.");
-                String sisend2 = input.getText();
-                mängija.kasuta(sisend2);
-            }*/
         if (!mängija.onElus()) {
             output.appendText("\nMäng läbi! Oled surnud.");
         }else if (!koletis.onElus()) {
