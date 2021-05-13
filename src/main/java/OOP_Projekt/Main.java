@@ -29,7 +29,7 @@ public class Main extends Application {
     List<Ese> algruumiesemed = new ArrayList<>(asList(new Ese("võti"), new HPEse("potion", 10)));
 
 
-    Ruum algus = new Ruum("Algus","\nSa ärkad üles hämaras ruumis.\n Uurides oma ümbrut näed sa ust.", null, algruumiesemed);
+    Ruum algus = new Ruum("Algus","Sa ärkad üles hämaras ruumis.\n Uurides oma ümbrut näed sa ust.", null, algruumiesemed);
 
     //Mängija
     List<Ese> mängjaAsjad = new ArrayList<>();
@@ -56,7 +56,9 @@ public class Main extends Application {
     }
 
     private void menüü() {
-        output.appendText("\nValikud: \n*võta <ese> \n *kasuta <ese> \n *ründa \n *info \n *liigu \n *stopp \n *salvesta \n *lae");
+        käsud.forEach((nimi, käsk) ->  {
+            output.appendText("\n\n" + nimi + " : " + käsk.getKirjeldus());
+        });
         output.appendText("\nSisesta käsk: ...");
     }
 
@@ -68,8 +70,8 @@ public class Main extends Application {
         käsud.put("välju", new Käsk("välju", "väljub mängust", Platform::exit));
         käsud.put("lae", new Käsk("lae", "laeb varasemalt salvestatud mängu", this::failistAlgus));
         käsud.put("uus", new Käsk("uus", "alustab uut mängu", this::uusAlgus));
-        käsud.put("võta", new Käsk("võta", "võtab valitud eseme üles", this::võtaEse));
-        käsud.put("kasuta", new Käsk("kasuta", "kasutab valitud eset", this::kasutaEset));
+        käsud.put("võta", new Käsk("võta", "võtab valitud eseme üles, NB. lisa ka eseme nimi! (nt. võta oda)", this::võtaEse));
+        käsud.put("kasuta", new Käsk("kasuta", "kasutab valitud eset, NB. lisa ka eseme nimi! (nt. kasuta oda)", this::kasutaEset));
         käsud.put("ründa", new Käsk("ründa", "ründab koletist", this::ründa));
         käsud.put("liigu", new Käsk("liigu", "liigub järgmisesse ruumi", this::liigu));
         käsud.put("info", new Käsk("info", "kuvab mängija info", this::info));
@@ -86,11 +88,8 @@ public class Main extends Application {
 }
     private void uusAlgus() {
         output.clear();
-        //output.appendText("\nSa ärkad üles hämaras ruumis.");
         output.appendText(algus.toString());
         mängija.setAsukoht(algus);
-        //output.appendText("\nValikud: \n*võta <ese> \n *kasuta <ese> \n *ründa \n *info \n *liigu \n *stopp \n *salvesta \n *lae");
-        //output.appendText("\nSisesta käsk: ");
         menüü();
     }
     private void failistAlgus() {
@@ -107,8 +106,7 @@ public class Main extends Application {
             menüü();
         }
         output.appendText(mängija.getAsukoht().toString());
-        output.appendText("\nValikud: \n*võta <ese> \n *kasuta <ese> \n *ründa \n *info \n *liigu \n *stopp \n *salvesta \n *lae");
-        output.appendText("\nSisesta käsk: ");
+        menüü();
 
     }
     private static void salvestaMäng(Mängija mängija) throws IOException {
@@ -161,21 +159,21 @@ public class Main extends Application {
 
     private void lahing(Mängija mängija, Koletis koletis, Ruum ruum) {
         tutvustus(koletis);
-        while (mängija.onElus() && koletis.onElus()) {
+        if (mängija.onElus() && koletis.onElus()) {
 
             output.appendText("\nSinu HP on: " + mängija.getHP());
             output.appendText("\nKoletise HP on: " + koletis.getHP());
             output.appendText("\n\n\n");
-            output.appendText("Ründa (ründa) / ravi ennast (potion) / kasuta relva (relv)");
 
-
-            /*if (sisend.equals("ründa")) {
-                koletis.rünnakuKahju(mängija);
+            //if (sisend.equals("ründa")) {
+            koletis.rünnakuKahju(mängija);
                 if (koletis.onElus()) {
                     mängija.rünnakuKahju(koletis);
                 }
+            output.appendText("Kui tahad oma rünnakut tugevdada, vaheta relva (nt kasuta oda).\nKui tahad end ravida, kasuta potionit (nt kasuta potion)." +
+                    "\nVastasel juhul ründa uuesti.");
             }
-            else if (sisend.equals("potion")) {
+            /*else if (sisend.equals("potion")) {
                 //System.out.println(mängija);
                 output.appendText(mängija.toString());
                 //System.out.println("Vali potion ning sisesta selle nimi.");
@@ -189,7 +187,6 @@ public class Main extends Application {
                 String sisend2 = input.getText();
                 mängija.kasuta(sisend2);
             }*/
-        }
         if (!mängija.onElus()) {
             output.appendText("\nMäng läbi! Oled surnud.");
         }else if (!koletis.onElus()) {
