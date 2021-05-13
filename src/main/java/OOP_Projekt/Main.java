@@ -41,6 +41,7 @@ public class Main extends Application {
         output.setPrefHeight(500);
         output.setFont(Font.font(15));
         output.setEditable(false);
+        output.setFocusTraversable(false);
 
         input.setOnAction(e -> {
             String inputText = input.getText();
@@ -60,7 +61,7 @@ public class Main extends Application {
         käsud.forEach((nimi, käsk) ->  {
             output.appendText("\n\n" + nimi + " : " + käsk.getKirjeldus());
         });
-        output.appendText("\nSisesta käsk: ...");
+        output.appendText("\n\nSisesta käsk: ...");
     }
 
     private void uusMäng(){
@@ -99,11 +100,11 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             output.appendText("\n\nEt laadida salvestatud mängu, pead kõigepealt mängu salvestama!");
-            //menüü();
+            input.clear();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             output.appendText("\n\nEt laadida salvestatud mängu, pead kõigepealt mängu salvestama!");
-            //menüü();
+            input.clear();
         }
         output.appendText(mängija.getAsukoht().toString());
         //menüü();
@@ -165,7 +166,7 @@ public class Main extends Application {
             output.appendText("\nSinu HP on: " + mängija.getHP());
             output.appendText("\nKoletise HP on: " + koletis.getHP());}
         if (mängija.onElus() && koletis.onElus()) {
-            
+
             output.appendText("\n\n");
             koletis.rünnakuKahju(mängija);
             if (koletis.onElus()) {
