@@ -160,14 +160,13 @@ public class Main extends Application {
     }
 
     private void lahing(Mängija mängija, Koletis koletis, Ruum ruum) {
-        tutvustus(koletis);
-        if (mängija.onElus() && koletis.onElus()) {
-
+        if (koletis.getHP() == koletis.getMaxHP()){
+            tutvustus(koletis);
             output.appendText("\nSinu HP on: " + mängija.getHP());
-            output.appendText("\nKoletise HP on: " + koletis.getHP());
-            output.appendText("\n\n\n");
-            uusKäsk();
-            //if (input.equals("ründa"))
+            output.appendText("\nKoletise HP on: " + koletis.getHP());}
+        if (mängija.onElus() && koletis.onElus()) {
+            
+            output.appendText("\n\n");
             koletis.rünnakuKahju(mängija);
             if (koletis.onElus()) {
                 mängija.rünnakuKahju(koletis);
