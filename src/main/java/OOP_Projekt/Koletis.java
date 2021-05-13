@@ -81,6 +81,10 @@ public class Koletis implements Serializable {
         return HP;
     }
 
+    public int getMaxHP() {
+        return maxHP;
+    }
+
     @Override
     public String toString() {
        return "\n" + nimi + " - Rünnaku tugevus: " +minTugevus+ "-" +maxTugevus + ", HP: " + maxHP;
