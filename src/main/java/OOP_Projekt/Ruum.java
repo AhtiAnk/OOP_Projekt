@@ -27,17 +27,17 @@ public class Ruum implements Serializable {
         switch (suvaline) {
             case 1:
                 nimi = "tuba1";
-                kirjeldus = "Sa astud ruumi, mis haiseb tugevalt kopituse järgi. Su saapad pritsivad iga sammuga vett üles.\n" + "Midagi krabistab su selja taga. Ole valmis võitluseks!";
+                kirjeldus = "\nSa astud ruumi, mis haiseb tugevalt kopituse järgi. Su saapad pritsivad iga sammuga vett üles.\n" + "Midagi krabistab su selja taga. Ole valmis võitluseks!";
                 esemed = new ArrayList<>(asList(new RündeEse("mõõk", 4)));
                 break;
             case 2:
                 nimi = "tuba2";
-                kirjeldus = "Sa kõnnid läbi pimeda koridori kuni jõuad hiiglasliku tammepuidust ukseni.\n" +  "Sa avad ukse ning kaks kollast silma hiilgavad sulle pimeduses vastu. Ole valmis võitluseks!";
+                kirjeldus = "\nSa kõnnid läbi pimeda koridori kuni jõuad hiiglasliku tammepuidust ukseni.\n" +  "Sa avad ukse ning kaks kollast silma hiilgavad sulle pimeduses vastu. Ole valmis võitluseks!";
                 esemed = new ArrayList<>(asList(new HPEse("potion", 5)));
                 break;
             case 3:
                 nimi = "tuba3";
-                kirjeldus = "Sa leiad end mahajäätud ballisaalist. Laealused on täis ämblikuvõrke ning saalipõrandal vedeleb katkine lühter.\n" + "Toa nurgast kostub tasane urin. Ole valmis võitluseks!";
+                kirjeldus = "\nSa leiad end mahajäätud ballisaalist. Laealused on täis ämblikuvõrke \nning saalipõrandal vedeleb katkine lühter.\n" + "Toa nurgast kostub tasane urin. Ole valmis võitluseks!";
                 esemed = new ArrayList<>(asList(new RündeEse("oda", 2)));
                 break;
             //case 4: veel tube...
@@ -74,7 +74,7 @@ public class Ruum implements Serializable {
     }
 
     public String toString(){
-        return "\n\n" +ruumi_kirjeldus +"\n"+ "Sa näed ruumis asju, mida võib hiljem vaja minna: " +
+        return "\n" +ruumi_kirjeldus +"\n"+ "Sa näed ruumis asju, mida võib hiljem vaja minna: " +
                 esemeListSõneks(esemed);
     }
 }
