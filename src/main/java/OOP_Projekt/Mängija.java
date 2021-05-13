@@ -46,14 +46,17 @@ public class Mängija implements Serializable {
         return tulemus.replace("[", "").replace("]", "");
     }
 
-    public void võtaEse(String nimi){
+    public String võtaEse(String nimi) {
         for (int i = 0; i < asukoht.getEsemed().size(); i++) {
             if (nimi.equals(asukoht.getEsemed().get(i).getNimi())) {
                 asjad.add(asukoht.getEsemed().get(i));
                 asukoht.getEsemed().remove(i);
-                break;
+                return "";
+            }}
+        if (!asukoht.getEsemed().contains(nimi)) {
+                return "\n\nSellist eset ruumis ei leidu.";
             }
-        }
+        return "";
     }
 
     public String kasuta(String nimi) {
@@ -65,21 +68,21 @@ public class Mängija implements Serializable {
                     if (HP > maxHP) //Kontrollib, et HP ei oleks üle max väärtuse
                         HP = maxHP;
                     asjad.remove(i);
-                    teade = "\nSinu HP taastati";
+                    teade = "\n\nSinu HP taastati";
                     return teade;
 
                 } else if (asjad.get(i) instanceof RündeEse) { //Võtab kasutusele, kui on ründeese
                     relv = (RündeEse) asjad.get(i);
-                    teade = "\nSu rünnak on nüüd tugevam";
+                    teade = "\n\nSu rünnak on nüüd tugevam";
                     return teade;
 
                 } else {
-                    teade = "\nEi saa kasutada";
+                    teade = "\n\nEi saa kasutada";
                     return teade;
                 }
             }
         }
-        return null;
+        return "\n\nSellist eset ei leitud!";
     }
 
     public String kasRelvOnKasutusel(){
